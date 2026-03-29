@@ -1,107 +1,761 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>M&F EXPRESS - Location VTC</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>M&F EXPRESS | LLD VTC Premium</title>
+  <meta name="description" content="Location Longue Durée VTC premium. Véhicules récents, entretien, assistance, 6000 km/mois, caution 2500€." />
+  <style>
+    :root{
+      --bg:#060606;
+      --bg-soft:#0f1728;
+      --panel:#10192d;
+      --panel-2:#16223d;
+      --gold:#d9b56d;
+      --gold-2:#9c7524;
+      --text:#f7f3ea;
+      --muted:#c9c2b5;
+      --line:rgba(217,181,109,.22);
+      --green:#25D366;
+      --shadow:0 20px 50px rgba(0,0,0,.35);
+      --radius:24px;
+    }
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0b1f4d;
-  color: white;
-  text-align: center;
-}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(217,181,109,.08), transparent 20%),
+        linear-gradient(180deg,#050505 0%, #0a1220 40%, #050505 100%);
+    }
 
-header {
-  background: black;
-  padding: 20px;
-}
+    img{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
 
-header h1 {
-  color: gold;
-  margin: 0;
-}
+    .container{
+      width:min(1180px, calc(100% - 28px));
+      margin:0 auto;
+    }
 
-.section {
-  padding: 30px 15px;
-}
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter:blur(10px);
+      background:rgba(6,6,6,.72);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
 
-img {
-  width: 90%;
-  max-width: 400px;
-  border-radius: 10px;
-  margin: 15px 0;
-}
+    .nav{
+      min-height:72px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
 
-.prix {
-  font-size: 22px;
-  color: gold;
-  font-weight: bold;
-}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.04em;
+    }
 
-.box {
-  background: white;
-  color: black;
-  margin: 15px;
-  padding: 20px;
-  border-radius: 10px;
-}
+    .brand-badge{
+      width:42px;height:42px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--gold),var(--gold-2));
+      color:#111;
+      font-weight:900;
+    }
 
-.btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 15px 25px;
-  background: #25D366;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: bold;
-}
-</style>
+    .nav-links{
+      display:flex;
+      gap:18px;
+      color:var(--muted);
+      font-size:.95rem;
+    }
 
+    .nav-links a:hover{color:#fff}
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      background:
+        linear-gradient(rgba(0,0,0,.56), rgba(0,0,0,.82)),
+        url('affiche_vtc.jpg') center/cover no-repeat;
+    }
+
+    .hero-wrap{
+      width:100%;
+      padding:56px 0;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      padding:10px 18px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-size:.8rem;
+      font-weight:700;
+      background:rgba(0,0,0,.25);
+      margin-bottom:18px;
+    }
+
+    h1{
+      margin:0 0 14px;
+      font-size:clamp(2.2rem, 6vw, 5.4rem);
+      line-height:1;
+      text-transform:uppercase;
+      color:var(--gold);
+      text-shadow:0 4px 18px rgba(0,0,0,.4);
+    }
+
+    .hero-text{
+      max-width:720px;
+      color:#fff;
+      font-size:1.08rem;
+      line-height:1.75;
+      margin:0 0 22px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:15px 22px;
+      border-radius:14px;
+      font-weight:800;
+      transition:.2s ease;
+      box-shadow:var(--shadow);
+    }
+
+    .btn-gold{
+      background:linear-gradient(135deg,var(--gold),var(--gold-2));
+      color:#111;
+    }
+
+    .btn-whatsapp{
+      background:linear-gradient(135deg,var(--green),#129847);
+      color:#fff;
+    }
+
+    .btn-outline{
+      border:1px solid var(--line);
+      color:#fff;
+      background:rgba(255,255,255,.04);
+      box-shadow:none;
+    }
+
+    .hero-card,.card,.info-card,.docs-card,.form-card,.contact-card,.offer-band{
+      background:linear-gradient(180deg, rgba(16,25,45,.92), rgba(10,16,28,.96));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .hero-card{
+      padding:24px;
+    }
+
+    .hero-card h2{
+      margin:0 0 10px;
+      color:var(--gold);
+      font-size:1.45rem;
+      text-transform:uppercase;
+    }
+
+    .hero-list{
+      list-style:none;
+      padding:0;
+      margin:16px 0 0;
+      display:grid;
+      gap:10px;
+    }
+
+    .hero-list li{
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.03);
+      line-height:1.55;
+    }
+
+    .price-line{
+      margin-top:18px;
+      font-size:1.1rem;
+      font-weight:700;
+    }
+
+    .price-line span{
+      color:var(--gold);
+      font-size:2rem;
+    }
+
+    .strip{
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(90deg,#151007,#080808,#151007);
+    }
+
+    .strip-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      padding:18px 0;
+      text-align:center;
+    }
+
+    .strip-item{
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(217,181,109,.16);
+      background:rgba(255,255,255,.02);
+    }
+
+    .strip-item strong{
+      display:block;
+      color:var(--gold);
+      font-size:1.2rem;
+      margin-bottom:4px;
+    }
+
+    section{
+      padding:72px 0;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:28px;
+    }
+
+    .section-title h2{
+      margin:0 0 8px;
+      font-size:clamp(1.8rem,4vw,2.9rem);
+      color:var(--gold);
+      text-transform:uppercase;
+    }
+
+    .section-title p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .offers{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .card{
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card img{
+      width:100%;
+      height:240px;
+      object-fit:cover;
+    }
+
+    .card-body{
+      padding:22px;
+    }
+
+    .tag{
+      display:inline-block;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(217,181,109,.12);
+      color:var(--gold);
+      font-size:.78rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-bottom:10px;
+    }
+
+    .card h3{
+      margin:0 0 8px;
+      font-size:1.5rem;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.6;
+      min-height:76px;
+    }
+
+    .tarif{
+      margin-top:16px;
+      font-size:1.08rem;
+      font-weight:800;
+    }
+
+    .tarif span{
+      color:var(--gold);
+      font-size:1.75rem;
+    }
+
+    .offer-band{
+      margin-top:22px;
+      padding:18px 20px;
+      text-align:center;
+      font-size:1.05rem;
+      color:#f7ecd2;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+    }
+
+    .info-card{
+      padding:24px;
+    }
+
+    .info-card h3{
+      margin:0 0 14px;
+      color:var(--gold);
+      text-transform:uppercase;
+    }
+
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      line-height:1.9;
+      color:#f2ede2;
+    }
+
+    .docs-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+    }
+
+    .docs-card{
+      padding:26px;
+      background:linear-gradient(180deg,#132041,#10182b);
+    }
+
+    .docs-card h3{
+      margin:0 0 18px;
+      font-size:1.8rem;
+      color:#fff;
+    }
+
+    .doc-item{
+      margin:12px 0;
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      color:#d9dceb;
+      text-align:left;
+      font-size:1rem;
+    }
+
+    .notice{
+      margin-top:18px;
+      padding:16px;
+      border-radius:18px;
+      background:rgba(217,181,109,.1);
+      border:1px solid rgba(217,181,109,.2);
+      color:#f7eccd;
+      line-height:1.6;
+    }
+
+    .form-wrap{
+      display:grid;
+      grid-template-columns:1fr .9fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .form-card{
+      padding:26px;
+    }
+
+    .form-card h3{
+      margin:0 0 10px;
+      color:var(--gold);
+      font-size:1.65rem;
+      text-transform:uppercase;
+    }
+
+    .form-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    form{
+      display:grid;
+      gap:14px;
+      margin-top:20px;
+    }
+
+    label{
+      display:grid;
+      gap:8px;
+      text-align:left;
+      font-weight:700;
+      color:#eee7da;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:14px 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:#fff;
+      font-size:1rem;
+    }
+
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    .submit-btn{
+      border:none;
+      cursor:pointer;
+      padding:16px 18px;
+      border-radius:14px;
+      font-weight:800;
+      font-size:1rem;
+      background:linear-gradient(135deg,var(--gold),var(--gold-2));
+      color:#111;
+    }
+
+    .contact-side{
+      display:grid;
+      gap:18px;
+    }
+
+    .contact-card{
+      padding:24px;
+      background:linear-gradient(180deg,#16110a,#090909);
+    }
+
+    .contact-card h3{
+      margin:0 0 8px;
+      color:var(--gold);
+      text-transform:uppercase;
+    }
+
+    .contact-card p{
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .phone{
+      font-size:2rem;
+      font-weight:800;
+      margin:12px 0;
+      color:#fff;
+    }
+
+    .floating-wa{
+      position:fixed;
+      right:18px;
+      bottom:18px;
+      z-index:50;
+      background:linear-gradient(135deg,var(--green),#129847);
+      color:#fff;
+      padding:14px 18px;
+      border-radius:999px;
+      font-weight:800;
+      box-shadow:0 14px 30px rgba(37,211,102,.28);
+    }
+
+    footer{
+      padding:26px 0 40px;
+      text-align:center;
+      color:#b8ab87;
+      font-size:.95rem;
+    }
+
+    @media (max-width: 900px){
+      .hero-wrap,
+      .strip-grid,
+      .offers,
+      .grid-2,
+      .docs-grid,
+      .form-wrap{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        min-height:auto;
+      }
+
+      .card p{
+        min-height:auto;
+      }
+
+      .nav-links{
+        display:none;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <h1>M&F EXPRESS</h1>
-  <p>Location Longue Durée VTC</p>
-</header>
+  <div class="topbar">
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-badge">M&F</div>
+        <div>M&F EXPRESS</div>
+      </div>
+      <div class="nav-links">
+        <a href="#offres">Offres</a>
+        <a href="#documents">Documents</a>
+        <a href="#formulaire">Demande</a>
+        <a href="https://wa.me/33753503077" target="_blank">WhatsApp</a>
+      </div>
+    </div>
+  </div>
 
-<div class="section">
-  <h2>🚗 OFFRE VTC LLD</h2>
-  <p>Caution : <strong>2500€</strong></p>
-  <p>✔ Entretien inclus</p>
-  <p>✔ Assistance</p>
-  <p>✔ Véhicules récents</p>
-  <p>✔ 6000 km / mois</p>
-</div>
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div>
+        <div class="eyebrow">Location Longue Durée VTC</div>
+        <h1>Leasing premium<br>qui rassure<br>et convertit</h1>
+        <p class="hero-text">
+          Une offre pensée pour les chauffeurs VTC qui veulent une solution claire,
+          premium et sérieuse : mensualité lisible, kilométrage adapté, entretien inclus
+          et véhicules récents.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#formulaire">Faire une demande</a>
+          <a class="btn btn-whatsapp" href="https://wa.me/33753503077" target="_blank">Parler sur WhatsApp</a>
+          <a class="btn btn-outline" href="#documents">Voir les documents</a>
+        </div>
+      </div>
 
-<div class="box">
-  <h3>Citadine</h3>
-  <img src="TON_IMAGE_CITADINE">
-  <p class="prix">990€ / mois</p>
-</div>
+      <div class="hero-card">
+        <h2>Offre mise en avant</h2>
+        <ul class="hero-list">
+          <li><strong>LLD spéciale VTC</strong> avec cadre clair et professionnel</li>
+          <li><strong>Caution :</strong> 2 500 €</li>
+          <li><strong>Kilométrage :</strong> 6 000 km / mois inclus</li>
+          <li><strong>Services :</strong> entretien, assistance, véhicule récent</li>
+        </ul>
+        <div class="price-line">À partir de <span>900€</span> / mois</div>
+      </div>
+    </div>
+  </section>
 
-<div class="box">
-  <h3>Berline</h3>
-  <img src="TON_IMAGE_BERLINE">
-  <p class="prix">1090€ / mois</p>
-</div>
+  <div class="strip">
+    <div class="container strip-grid">
+      <div class="strip-item"><strong>900€</strong>À partir de</div>
+      <div class="strip-item"><strong>2 500€</strong>Caution</div>
+      <div class="strip-item"><strong>6 000 km</strong>Inclus / mois</div>
+      <div class="strip-item"><strong>Entretien</strong>Inclus</div>
+    </div>
+  </div>
 
-<div class="box">
-  <h3>SUV</h3>
-  <img src="TON_IMAGE_SUV">
-  <p class="prix">1190€ / mois</p>
-</div>
+  <section id="offres">
+    <div class="container">
+      <div class="section-title">
+        <h2>Nos offres véhicules</h2>
+        <p>Une présentation premium pour vendre plus facilement.</p>
+      </div>
 
-<div class="section">
-  <h2>📞 Contact rapide</h2>
-  <p>07 53 50 30 77</p>
-  <a class="btn" href="https://wa.me/33753503077">WhatsApp</a>
-</div>
+      <div class="offers">
+        <div class="card">
+          <img src="citadine_e208.jpg" alt="Peugeot E-208">
+          <div class="card-body">
+            <div class="tag">Citadine</div>
+            <h3>Peugeot E-208</h3>
+            <p>Une offre accessible, moderne et adaptée à une activité urbaine avec image récente.</p>
+            <div class="tarif">À partir de <span>900€</span> / mois</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="berline_408.jpg" alt="Peugeot 408">
+          <div class="card-body">
+            <div class="tag">Berline</div>
+            <h3>Peugeot 408</h3>
+            <p>Un positionnement plus valorisant pour les chauffeurs qui veulent monter en gamme.</p>
+            <div class="tarif">À partir de <span>900€</span> / mois</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="affiche_vtc.jpg" alt="Offre VTC M&F EXPRESS">
+          <div class="card-body">
+            <div class="tag">SUV</div>
+            <h3>SUV Premium</h3>
+            <p>Confort, présence visuelle et prestation haut de gamme pour les longues courses.</p>
+            <div class="tarif">À partir de <span>900€</span> / mois</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="offer-band">
+        Offre LLD VTC avec mensualité lisible, véhicules récents et dépôt de garantie de <strong>2 500 €</strong>.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-title">
+        <h2>LLD claire et rassurante</h2>
+        <p>Une solution qui réduit les zones d’ombre et aide le client à se décider.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="info-card">
+          <h3>LLD</h3>
+          <ul>
+            <li>Mensualité fixe</li>
+            <li>Durée cadrée</li>
+            <li>Suivi simplifié</li>
+            <li>Solution rassurante pour rouler sans surprise</li>
+          </ul>
+        </div>
+
+        <div class="info-card">
+          <h3>Conditions principales</h3>
+          <ul>
+            <li>Dépôt de garantie : 2 500 €</li>
+            <li>Sous réserve d’acceptation du dossier</li>
+            <li>Pièces justificatives demandées</li>
+            <li>Km supplémentaires facturés en plus</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notice">
+        Cette page met clairement en avant la <strong>LLD pour VTC</strong>, la
+        <strong>caution de 2 500 €</strong> et une offre pensée pour inspirer confiance.
+      </div>
+    </div>
+  </section>
+
+  <section id="documents">
+    <div class="container">
+      <div class="section-title">
+        <h2>Documents à préparer</h2>
+        <p>Un dossier complet = une étude plus rapide.</p>
+      </div>
+
+      <div class="docs-grid">
+        <div class="docs-card">
+          <h3>Particulier</h3>
+          <div class="doc-item">Carte d’identité</div>
+          <div class="doc-item">Permis de conduire</div>
+          <div class="doc-item">Justificatif de domicile</div>
+          <div class="doc-item">3 fiches de paie</div>
+          <div class="doc-item">Avis d’imposition</div>
+          <div class="doc-item">RIB</div>
+        </div>
+
+        <div class="docs-card">
+          <h3>Professionnel / VTC</h3>
+          <div class="doc-item">Kbis</div>
+          <div class="doc-item">Permis de conduire</div>
+          <div class="doc-item">Carte VTC si applicable</div>
+          <div class="doc-item">Justificatif de domicile</div>
+          <div class="doc-item">Bilan comptable si disponible</div>
+          <div class="doc-item">RIB</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="formulaire">
+    <div class="container form-wrap">
+      <div class="form-card">
+        <h3>Formulaire de demande client</h3>
+        <p>Préparez votre demande rapidement. Cette section donne une vraie impression de sérieux et de professionnalisme.</p>
+
+        <form>
+          <label>Nom complet
+            <input type="text" placeholder="Votre nom et prénom">
+          </label>
+
+          <label>Téléphone
+            <input type="text" placeholder="Votre numéro">
+          </label>
+
+          <label>Email
+            <input type="email" placeholder="Votre email">
+          </label>
+
+          <label>Type de profil
+            <select>
+              <option>Particulier</option>
+              <option>Professionnel / VTC</option>
+            </select>
+          </label>
+
+          <label>Véhicule souhaité
+            <select>
+              <option>Peugeot E-208</option>
+              <option>Peugeot 408</option>
+              <option>SUV Premium</option>
+            </select>
+          </label>
+
+          <label>Message
+            <textarea placeholder="Précisez votre besoin"></textarea>
+          </label>
+
+          <button class="submit-btn" type="button">Envoyer la demande</button>
+        </form>
+      </div>
+
+      <div class="contact-side">
+        <div class="contact-card">
+          <h3>Contact rapide</h3>
+          <p>Devis rapide et sans engagement</p>
+          <div class="phone">07 53 50 30 77</div>
+          <a class="btn btn-whatsapp" href="https://wa.me/33753503077" target="_blank">Contacter sur WhatsApp</a>
+        </div>
+
+        <div class="contact-card">
+          <h3>Pourquoi M&F EXPRESS</h3>
+          <p>Un site premium, une offre lisible et une présentation qui donne envie de passer à l’action.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © M&F EXPRESS — LLD Premium spéciale VTC
+  </footer>
+
+  <a class="floating-wa" href="https://wa.me/33753503077" target="_blank">WhatsApp</a>
 
 </body>
 </html>
